@@ -1,0 +1,11 @@
+Please do the following:
+
+- use quasistatc_0007_extracted.mat for static identification
+- use dynamic_0006_extracted.mat for dynamic identification
+- use dynamic_0005_extracted.mat for validation
+
+Also:
+
+- load data into simulink model using "from workspace" blocks and use as variables "meas.<variablename>" within the block. 
+- read details on "from workspace" block for more information.
+

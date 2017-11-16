@@ -1,0 +1,106 @@
+THE IDLE SPEED CONTROL SYSTEM EXERCISE: STUFF THAT MATTERS
+----------------------------------------------------------
+      2.5l 5-cylinder port fuel injected SI engine
+
+- MOTIVATION
+  Modern SIE: low idle speed limits (700 rpm), but torque
+  changes may stall the engine at these speeds => fast
+  idle speed control system is inevitable
+
+- STRUCTURE OF THE CONTROL SYSTEM
+  o Main input = engine speed
+
+  o Main output = ...
+      * air command (u_alpha): throttle throttle valve
+        position; slower response
+      * ignition command (u_zeta/du_ign): retardation of
+        the iginition angle from its maximum brake
+        torque position change engine torque almost
+        instantaneously with reduced efficiency and
+        increased emissions
+    Conclusion (i.e. the main goal of the ISCS:
+      => Initially use ignition command to compensate
+         torque fluctuations while waiting for the
+         slow response from the air command
+
+- ASSUMPTIONS
+  o Air to fuel ratio is constant and stoichiometric
+    (i.e. lambda = 1)
+  o Disturbance torque is not measurable, i.e. there
+    is no feedforward control possible.
+    
+- SOME REMARKS ON IGNITION ANGLE 
+The ignition angle is measured in degrees before top dead
+center (BTDC). Therefore, an ignition DELAY has a
+NEGATIVE value (closer to TDC). The relation between the
+ignition angle zeta and the engine torque T_e is quadratic,
+with a maximum at some positive zeta ( = some angle before
+TDC), called the maximum brake torque MBT. This point is
+dependent on engine conditions and hard to determine
+exactly, which is why we redefine the parabola centered
+around the MBT define the ignition angle relative to this
+value.
+  Trying to operate the engine with an ignition angle
+zeta_MBT would yield maximum torque and efficiency, but it
+would prevent us from using it as a control input (we can't
+increase the torque more than MBT). Therefore, zeta is kept
+at a higher (earlier) and slightly less efficient value
+zeta_0. When necessary, it can be decreased to increase the
+torque.
+  du_ign is the ignition delay (measured in degrees BTDC)
+with respect to the MBT. Because of this definition, it is
+0 at the MBT and becomes more negative towards zeta_0 (more
+negative = earlier). It is never desirable to ignite
+earlier than zeta_0 as it decreases the efficiency and the
+torque even further.
+
+- NOTES ON MILESTONE I
+  o Engine is modelled as a volumetric pump
+  o The engine is assumed to be decoupled from the drive-
+    train (minimum inertia!); disturbance torques are
+    assumed to act on the flywheel directly.
+  o The alternator is used to create variable load torques
+    by means of a controllable electrical load. 
+  o Hints:
+   * Use fixed-step (size 0.001s) solver in Simulink
+   * Simulation options in the paramter file:
+      simopt = simset('Solver', 'ode1', 'FixedStep',
+                       1e-3, 'SrcWorkspace, 'current')
+
+- NOTES ON MILESTONE II
+General approach: the first subsystems in the causality
+chain are identified first using intermediate system
+outputs.
+
+  o Throttle parameters (quasistatic measurements)
+    Estimate alpha_0, alpha_1 that provide a linear
+    relation between the throttle input and the throttle
+    area, which can be obtained with equation (2.3). This
+    can be done without Simulink model using linear least
+    squares (lls).
+  o Engine mass flow parameters (quasistatic measurements)
+    BEWARE: lambda_[...] refers to volumetric efficiency,
+    lambda without subscript is the AF ratio.
+    lamba_lw is assumed to be a linear function of the
+    engine speed with parameters gamma_0 and gamma_1, which
+    have to be identified. lambda_lw can be obtained from
+    measurements by equation (2.4) in the manual. Again,
+    apply lls to determine the desired parameters.
+  o Intake manifold volume (dynamic measurements)
+    Use simulink model with following blocks
+      * Throttle area
+      * Throttle air mass flow
+      * Engine air mass flow
+      * Intake manifold
+    (!) Use throttle mass flow model instead of the measured
+        data for mdot_alpha.
+    Similar to the intake manifold exercise, use fminsearch
+    to minimize the rms error between the p_m estimated by
+    the model and the p_m of the measurements.
+    (!) Use the engine speed from the data instead of the
+        feedback from the model
+  o Generator efficiency
+
+
+    
+   
