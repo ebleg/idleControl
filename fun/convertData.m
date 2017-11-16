@@ -1,6 +1,7 @@
 %% CONVERT FAULTY MEASUREMENT DATA
 % load measurement 
-load('dynamic_0006_extracted_error.mat')
+load('dynamic_0006_extracted.mat')
+
 meas_err = meas; clear meas; 
 
 % get field names
@@ -22,9 +23,4 @@ end
 % new time vector
 meas.time = time_vec; 
 
-save('dynamic_0006_extracted_CORRECTED.mat', 'meas')
-    
-    
-    
-    
-    
+save('./dat/measurementData/dynamic_0006_extracted_CORRECTED.mat', 'meas')

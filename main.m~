@@ -1,0 +1,9 @@
+%% IDLE SPEED CONTROL EXERCISE
+% Michael Chadwick, Twan van der Sijs & Emiel Legrand
+% ETH Zurich (2017) - Engine Systems
+% ------------------------------------------------------------------------
+
+%% MAIN TOGGLE OPTIONS
+identify_throttle = 1;
+identify_engine_air_mass = 1;
+identify_
