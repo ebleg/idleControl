@@ -3,7 +3,54 @@
 % ETH Zurich (2017) - Engine Systems
 % ------------------------------------------------------------------------
 
+clear;
+clc;
+close all;
+
+addpath(genpath('.'));
+
 %% MAIN TOGGLE OPTIONS
+identify_params = 1; % general switch
+
 identify_throttle = 1;
-identify_engine_air_mass = 1;
-identify_
+identify_engine = 1;
+identify_manifold = 1;
+identify_generator = 1;
+
+plot_validation = 1;
+convert_data = 1;
+
+%% LOAD PARAMETERS
+fprintf('------ MAIN -------\n \n');
+fprintf('$ Loading parameters ...');
+run params;
+run parinit;
+fprintf(' Done\n');
+
+%% CODE
+% Data conversion
+if convert_data
+  fprintf('$ Converting data ...');
+  convertData('dynamic_0006_extracted.mat');
+  fprintf(' Done\n');
+end
+
+% Parameter identification
+if identify_params
+    if identify_throttle
+        fprintf('\n$ Identify throttle parameters ...'); 
+        [alpha0, alpha1] = idThrottle('quasistatic_0007_extracted.mat', pars, plot_validation);
+        pars.id.alpha0 = alpha0;
+        pars.id.alpha1 = alpha1;
+        fprintf(' Done\n');
+    end
+    
+end
+
+%% LOAD IDENTIFIED PARAMETERS
+%run parid;
+
+
+fprintf('\n------ END --------\n');
+
+
