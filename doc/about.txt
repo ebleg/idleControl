@@ -99,7 +99,9 @@ outputs.
     the model and the p_m of the measurements.
     (!) Use the engine speed from the data instead of the
         feedback from the model
-  o Generator efficiency
+  o Generator efficiency = 0.7 (given)
+  o Use the 0028 data file for dynamic identification (see slides exercise 
+    session 8)
 
 
     

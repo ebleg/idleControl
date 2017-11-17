@@ -36,25 +36,30 @@ pars.id.THETA_e = id_pars(4);
 [~, ~, w_e_model] = sim('full_model.slx',... %% ###insert model name here###
     [meas.time(1) meas.time(end)],...
     pars.sim_opt,...
-    [meas.time', meas.u_alpha.signals.values', ...
-        meas.du_ign.signals.values',...
-        meas.u_l.signals.values']); %% add other inputs
+    [meas.time, meas.u_alpha.signals.values, ...
+        meas.du_ign.signals.values,...
+        meas.u_l.signals.values,...
+        meas.P_l.signals.values]); %% add other inputs
 
-error = sum((meas.omega_e.signals.values - w_e_model').^2);
+error = sum((meas.omega_e.signals.values - w_e_model).^2);
 
 if plot_validation_toggle
     get(0,'CurrentFigure'); % use current figure - do not set it on top in each update process
     plot(meas.time, meas.omega_e.signals.values, 'b');hold on;grid on;
-    plot(meas.time,w_e_model','-r');hold off; % "holf off" is important here, otherwise you always see the results of all past simulations.
-    xlabel('Time [s]');
-    ylabel('Intake Manifold Pressure [Pa]');
-    legend('Measurements','Simulation','Location','East');
-    
-    set(gca,'XLim',[meas.time(1) meas.time(end)]);
+    plot(meas.time,w_e_model,'-r');
+    ylabel('Engine Speed [rad/s]');
     set(gca,'YLim',[min(meas.omega_e.signals.values) - ...
         1/10*mean(meas.omega_e.signals.values) ...
         max(meas.omega_e.signals.values) + ...
         1/10*mean(meas.omega_e.signals.values)]);
+
+    plot(meas.time(meas.u_l.signals.values>0), 40+10.*meas.u_l.signals.values(meas.u_l.signals.values>0),...
+        'g','Linewidth',3);hold off; % "holf off" is important here, otherwise you always see the results of all past simulations.
+   
+    xlabel('Time [s]');
+    legend('Measurements','Simulation','Load state','Location','SE');
+    set(gca,'XLim',[meas.time(1) meas.time(end)]);
+    
     
     drawnow
 end 

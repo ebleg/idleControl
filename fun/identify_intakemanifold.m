@@ -26,9 +26,9 @@ pars.id.V_m = V_m;
 [~, ~, p_m_model] = sim('id_manifold_model.slx',... %% ###insert model name here###
     [meas.time(1) meas.time(end)],...
     pars.sim_opt,...
-    [meas.time', meas.u_alpha.signals.values', meas.omega_e.signals.values']); %% add other inputs
+    [meas.time, meas.u_alpha.signals.values, meas.omega_e.signals.values]); %% add other inputs
 
-error = sum((meas.p_m.signals.values./10^5 - p_m_model'./10^5).^2);
+error = sum((meas.p_m.signals.values./10^5 - p_m_model./10^5).^2);
 
 if plot_validation_toggle
     get(0,'CurrentFigure'); % use current figure - do not set it on top in each update process
@@ -36,7 +36,7 @@ if plot_validation_toggle
     plot(meas.time,p_m_model','-r');hold off; % "holf off" is important here, otherwise you always see the results of all past simulations.
     xlabel('Time [s]');
     ylabel('Intake Manifold Pressure [Pa]');
-    legend('Measurements','Simulation','Location','East');
+    legend('Measurements','Simulation','Location','SE');
     
     set(gca,'XLim',[meas.time(1) meas.time(end)]);
     set(gca,'YLim',[min(meas.p_m.signals.values)-1/10*mean(meas.p_m.signals.values) max(meas.p_m.signals.values)+1/10*mean(meas.p_m.signals.values)]);

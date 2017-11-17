@@ -49,7 +49,12 @@ if identify_params
     end
     if identify_manifold_toggle
         fprintf('$ Identify manifold volume ...');
-        [pars.id.V_m] = identify_intakemanifold('dynamic_0006_extracted_CORRECTED.mat', pars, plot_validation_toggle);
+        [pars.id.V_m] = identify_intakemanifold('dynamic_0028_extracted.mat', pars, plot_validation_toggle);
+        fprintf(' Done\n');
+    end
+    if identify_manifold_toggle
+        fprintf('$ Identify manifold volume ...');
+        [pars.id.eta_0, pars.id.eta_1, pars.id.beta_0, pars.id.THETA_e] = identify_torque_and_intertia('dynamic_0028_extracted.mat', pars, plot_validation_toggle);
         fprintf(' Done\n');
     end
 end
