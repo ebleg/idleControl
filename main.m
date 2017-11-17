@@ -47,7 +47,6 @@ if identify_params
         [pars.id.gamma_0, pars.id.gamma_1] = identify_engine('quasistatic_0007_extracted.mat', pars, 0);
         fprintf(' Done\n');
     end
-
 end
 
 %% LOAD IDENTIFIED PARAMETERS
