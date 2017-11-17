@@ -6,11 +6,11 @@ data = load(dataFile);
 meas = data.meas;
 
 %% set fminserach options 
-efun_fminsearch = @(V_m) model_error(V_m, meas);
-setopt = optimset('Algorithm','sqp','display','iter','Maxit',30);
+efun_fminsearch = @(V_m) model_error(V_m, meas, pars);
+
 
 %% call fminsearch
-V_m = fminsearch(efun_fminsearch, V_mini, setopt);
+V_m = fminsearch(efun_fminsearch, pars.init.V_m, pars.fmin_opt);
 
 %% validate
 if plot_validation_toggle
@@ -19,9 +19,14 @@ end
      
 end
 
-function [error] = model_error(V_m , meas)
+function [error] = model_error(V_m , meas, pars)
 %% error function for V_m
 
+[~, ~, p_m_model] = sim('some name',... %% ###insert model name here###
+    [meas.time(1) meas.time(end)],...
+    pars.sim_opt,...
+    [meas.time meas.mdotin]); %% add other inputs
 
+error = sum((meas.p_m.signals.values - p_m_model).^2);
 end
 

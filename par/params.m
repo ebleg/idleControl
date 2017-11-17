@@ -1,6 +1,7 @@
 %% MAIN PARAMETER FILE
 
 %% simulation options
+pars.fmin_opt = optimset('Algorithm','sqp','display','iter','Maxit',30);
 pars.sim_opt     = simset( 'SrcWorkspace','current','FixedStep', 1e-3,'Solver','ode1');
 
 %% Control inputs
