@@ -1,0 +1,17 @@
+function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
+%IDENTIFY volume of the INTAKE MANIFOLD
+
+data = load(dataFile);
+meas = data.meas;
+
+
+
+
+if plot_validation_toggle
+    % plot stuff
+end
+     
+end
+
+function []
+
