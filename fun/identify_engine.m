@@ -26,7 +26,13 @@ function [gamma_0, gamma_1] = identify_engine(dataFile, pars, plot_validation_to
     gamma_0 = gamma(1);
     gamma_1 = gamma(2);
     
-    
+    if plot_validation_toggle
+        plot(t, lambda_lw);
+        hold on;
+        plot(t, gamma_0 + w_e*gamma_1);
+        hold off;
+    end
+     
     
 end
 

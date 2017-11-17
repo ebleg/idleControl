@@ -17,8 +17,8 @@ identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
 identify_generator_toggle = 1;
 
-plot_validation_toggle = 0;
-convert_data_toggle = 1;
+plot_validation_toggle = 1;
+convert_data_toggle = 0;
 
 %% LOAD PARAMETERS
 fprintf('------ MAIN -------\n \n');
@@ -44,7 +44,7 @@ if identify_params
     end
     if identify_engine_toggle
         fprintf('$ Identify engine parameters ...');
-        [pars.id.gamma_0, pars.id.gamma_1] = identify_engine('quasistatic_0007_extracted.mat', pars, plot_validation_toggle);
+        [pars.id.gamma_0, pars.id.gamma_1] = identify_engine('quasistatic_0007_extracted.mat', pars, 0);
         fprintf(' Done\n');
     end
 

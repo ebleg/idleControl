@@ -28,7 +28,8 @@ function [alpha_0, alpha_1] = identify_throttle(dataFile, pars, plot_validation_
     if plot_validation_toggle
         plot(t, A_alpha);
         hold on;
-        plot(t, repmat(alpha_0, size(u_alpha, 1), 1) + alpha_1*u_alpha);
+        plot(t, alpha_0 + alpha_1*u_alpha);
+        hold off;
     end
    
 
