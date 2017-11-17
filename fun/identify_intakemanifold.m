@@ -5,10 +5,8 @@ function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
 data = load(dataFile);
 meas = data.meas;
 
-%% initialize V_m such that the model runs
-pars.id.V_m = pars.init.V_m;
 
-%% set fminserach options 
+%% set fminsearch function
 efun_fminsearch = @(V_m) model_error(V_m, meas, pars, plot_validation_toggle);
 
 
