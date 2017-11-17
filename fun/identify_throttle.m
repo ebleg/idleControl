@@ -6,7 +6,7 @@ function [alpha_0, alpha_1] = identify_throttle(dataFile, pars, plot_validation_
     
     t = meas.time;
     p_a = meas.p_a.signals.values;
-    T_a = meas.T_a.signals.values;
+    theta_a = meas.T_a.signals.values;
     m_dot_alpha = meas.m_dot_alpha.signals.values;
     u_alpha = meas.u_alpha.signals.values;
     
@@ -14,7 +14,7 @@ function [alpha_0, alpha_1] = identify_throttle(dataFile, pars, plot_validation_
     R = pars.static.R;
     
     % Establish matrices
-    A_alpha = m_dot_alpha.*sqrt(2.*R.*T_a)./p_a;
+    A_alpha = m_dot_alpha.*sqrt(2.*R.*theta_a)./p_a;
     M_u_alpha = [ones(size(u_alpha, 1), 1) u_alpha];
     
     % Perform linear least-squares

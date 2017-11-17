@@ -3,7 +3,7 @@ function [gamma_0, gamma_1] = identify_engine(dataFile, pars, plot_validation_to
     data = load(dataFile);
     meas = data.meas;
     
-    T_m = meas.T_m.signals.values;
+    theta_m = meas.T_m.signals.values;
     p_m = meas.p_m.signals.values;
     m_dot_alpha = meas.m_dot_alpha.signals.values;
     w_e = meas.omega_e.signals.values;
@@ -18,7 +18,7 @@ function [gamma_0, gamma_1] = identify_engine(dataFile, pars, plot_validation_to
     kappa = pars.static.kappa;
     
     lambda_lp = (V_c + V_d)/V_d - (V_c/V_d)*(p_e./p_m).^(1/kappa);
-    lambda_lw = (4*pi*R/V_d)*((T_m.*m_dot_alpha)./(p_m.*w_e.*lambda_lp)).*(1 + 1./(lambda*sigma_0));
+    lambda_lw = (4*pi*R/V_d)*((theta_m.*m_dot_alpha)./(p_m.*w_e.*lambda_lp)).*(1 + 1./(lambda*sigma_0));
     M_w_e = [ones(size(w_e, 1), 1) w_e];
     
     gamma = (M_w_e'*M_w_e)\M_w_e'*lambda_lw;
