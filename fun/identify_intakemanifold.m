@@ -1,5 +1,5 @@
 function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
-    %IDENTIFY volume of the INTAKE MANIFOLD
+%% IDENTIFY volume of the INTAKE MANIFOLD
 
     %% load data
     data = load(dataFile);
