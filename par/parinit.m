@@ -13,7 +13,6 @@ pars.init.du_ign = 0; % [-]
 pars.init.m_dot_beta = 0.7; % [s]
 
 % Engine Inertia
-pars.init.THETA_e = 0.2; % [kg*m^2 ??]
 pars.init.w_e = 100; % [rad/s]
 
 
