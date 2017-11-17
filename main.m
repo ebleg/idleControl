@@ -17,8 +17,8 @@ identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
 identify_generator_toggle = 1;
 
-plot_validation = 1;
-convert_data = 1;
+plot_validation_toggle = 0;
+convert_data_toggle = 1;
 
 %% LOAD PARAMETERS
 fprintf('------ MAIN -------\n \n');
@@ -29,9 +29,9 @@ fprintf(' Done\n');
 
 %% CODE
 % Data conversion
-if convert_data
+if convert_data_toggle
   fprintf('$ Converting data ...');
-  convertData('dynamic_0006_extracted.mat');
+  convert_data('dynamic_0006_extracted.mat');
   fprintf(' Done\n');
 end
 
@@ -39,9 +39,12 @@ end
 if identify_params
     if identify_throttle_toggle
         fprintf('\n$ Identify throttle parameters ...'); 
-        [alpha0, alpha1] = identify_throttle('quasistatic_0007_extracted.mat', pars, plot_validation);
-        pars.id.alpha0 = alpha0;
-        pars.id.alpha1 = alpha1;
+        [pars.id.alpha_0, pars.id.alpha_1] = identify_throttle('quasistatic_0007_extracted.mat', pars, plot_validation_toggle);
+        fprintf(' Done\n');
+    end
+    if identify_engine_toggle
+        fprintf('$ Identify engine parameters ...');
+        [pars.id.gamma_0, pars.id.gamma_1] = identify_engine('quasistatic_0007_extracted.mat', pars, plot_validation_toggle);
         fprintf(' Done\n');
     end
 
@@ -49,7 +52,6 @@ end
 
 %% LOAD IDENTIFIED PARAMETERS
 %run parid;
-
 
 fprintf('\n------ END --------\n');
 

@@ -1,4 +1,4 @@
-function [alpha0, alpha1] = identify_throttle(dataFile, pars, plot_validation)
+function [alpha_0, alpha_1] = identify_throttle(dataFile, pars, plot_validation_toggle)
 %% IDENTIFY THROTTLE PARAMETERS (alpha0, alpha1)
     % Import data from quasistatic data
     data = load(dataFile);
@@ -21,14 +21,14 @@ function [alpha0, alpha1] = identify_throttle(dataFile, pars, plot_validation)
     alpha = (M_u_alpha'*M_u_alpha)\M_u_alpha'*A_alpha; 
     
     % Get desired parameters
-    alpha0 = alpha(1);
-    alpha1 = alpha(2);
+    alpha_0 = alpha(1);
+    alpha_1 = alpha(2);
     
     % Validation plot
-    if plot_validation
+    if plot_validation_toggle
         plot(t, A_alpha);
         hold on;
-        plot(t, repmat(alpha0, size(u_alpha, 1), 1) + alpha1*u_alpha);
+        plot(t, repmat(alpha_0, size(u_alpha, 1), 1) + alpha_1*u_alpha);
     end
    
 
