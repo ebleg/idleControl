@@ -7,7 +7,7 @@ meas = data.meas;
 
 %% set fminserach options 
 efun_fminsearch = @(V_m) model_error(V_m, meas);
-setopt = optimset(   'Algorithm','sqp','display','iter','Maxit',30);
+setopt = optimset('Algorithm','sqp','display','iter','Maxit',30);
 
 %% call fminsearch
 V_m = fminsearch(efun_fminsearch, V_mini, setopt);

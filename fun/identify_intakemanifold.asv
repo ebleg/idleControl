@@ -1,17 +1,32 @@
 function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
 %IDENTIFY volume of the INTAKE MANIFOLD
 
+%% load data
 data = load(dataFile);
 meas = data.meas;
 
+%% set fminserach options 
+efun_fminsearch = @(V_m) model_error(V_m, meas, pars);
+setopt = optimset('Algorithm','sqp','display','iter','Maxit',30);
 
+%% call fminsearch
+V_m = fminsearch(efun_fminsearch, V_mini, setopt);
 
-
+%% validate
 if plot_validation_toggle
     % plot stuff
 end
      
 end
 
-function []
+function [error] = model_error(V_m , meas, pars)
+%% error function for V_m
+
+[time, x, y] = sim(###insert model name here###,...
+    [meas.time(1) meas.time(end)],...
+    pars.sim_opt,...
+    [Data.time Data.mdotin]);
+
+error = sum((p_m_meas - p_m_model).^2);
+end
 

@@ -1,5 +1,8 @@
 %% MAIN PARAMETER FILE
 
+%% simulation options
+pars.sim_opt     = simset( 'SrcWorkspace','current','FixedStep', 1e-3,'Solver','ode1');
+
 %% Control inputs
 pars.static.u_alpha = 20; % control input in range [0,...,100]
 pars.static.du_ign = 0; % control input in CA, delaying CA should be negative
