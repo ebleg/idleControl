@@ -1,6 +1,6 @@
 %% INTIIAL VALUES
 % Intake Manifold
-pars.init.p_m = 100000; % [Pa]
+pars.init.p_m = 20000; % [Pa]
 pars.init.theta_m = 300; % [K]
 
 

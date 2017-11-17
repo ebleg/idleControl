@@ -1,7 +1,7 @@
 %% MAIN PARAMETER FILE
 
 %% simulation options
-pars.fmin_opt = optimset('Algorithm','sqp','display','iter','Maxit',30);
+pars.fmin_opt = optimset('TolX',10^-6,'TolFun',10^-6,'display','iter','Maxit',30);
 pars.sim_opt     = simset( 'SrcWorkspace','current','FixedStep', 1e-3,'Solver','ode1');
 
 %% Control inputs
