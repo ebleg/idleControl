@@ -6,12 +6,22 @@ function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
     meas = data.meas;
     model = 'id_manifold_model.slx';
 
+<<<<<<< HEAD
+    %% set fminserach options 
+    mod = @(V_m) model_error(model, V_m, meas);
+    setopt = optimset('Algorithm','sqp','display','iter','Maxit',30);
+
+    %% call fminsearch
+    V_m = fminsearch(efun_fminsearch, V_mini, setopt);
+=======
+
 %% set fminsearch function
 efun_fminsearch = @(V_m) model_error(V_m, meas, pars, plot_validation_toggle);
 
 
 %% call fminsearch
 V_m = fminsearch(efun_fminsearch, pars.init.V_m, pars.fmin_opt);
+>>>>>>> 2d3ebed0560c92a9496a3aa7fd6268075ed0fec8
 
     %% validate
     if plot_validation_toggle
@@ -19,6 +29,8 @@ V_m = fminsearch(efun_fminsearch, pars.init.V_m, pars.fmin_opt);
     end
      
 end
+<<<<<<< HEAD
+=======
 
 function [error] = model_error(V_m , meas, pars, plot_validation_toggle)
 %% error function for V_m
@@ -44,3 +56,5 @@ if plot_validation_toggle
     drawnow
 end 
 end
+
+>>>>>>> 2d3ebed0560c92a9496a3aa7fd6268075ed0fec8

@@ -1,6 +1,7 @@
 %% MAIN PARAMETER FILE
 
 %% simulation options
+pars.fmin_opt = optimset('TolX',10^-4,'TolFun',10^-4,'display','iter','Maxit',100);
 pars.sim_opt     = simset( 'SrcWorkspace','current','FixedStep', 1e-3,'Solver','ode1');
 
 %% Control inputs
@@ -33,5 +34,3 @@ pars.static.p_e = 100000; %[Pa] most random guess
 % Load Torque
 pars.static.eta_gen = 0.7; % efficiency generator [-]
 
-% Engine Inertia
-pars.static.THETA_e = 0.2; % [kg*m^2 ??]

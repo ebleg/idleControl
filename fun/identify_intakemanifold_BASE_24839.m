@@ -6,7 +6,7 @@ data = load(dataFile);
 meas = data.meas;
 
 %% set fminserach options 
-efun_fminsearch = @(V_m) model_error(V_m, meas, pars);
+efun_fminsearch = @(V_m) model_error(V_m, meas);
 setopt = optimset('Algorithm','sqp','display','iter','Maxit',30);
 
 %% call fminsearch
@@ -19,14 +19,9 @@ end
      
 end
 
-function [error] = model_error(V_m , meas, pars)
+function [error] = model_error(V_m , meas)
 %% error function for V_m
 
-[~, ~, p_m_model] = sim('some name',... %% ###insert model name here###
-    [meas.time(1) meas.time(end)],...
-    pars.sim_opt,...
-    [meas.time meas.mdotin]); %% add other inputs
 
-error = sum((meas.p_m.signals.values - p_m_model).^2);
 end
 

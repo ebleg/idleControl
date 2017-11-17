@@ -1,10 +1,10 @@
 function [V_m] = identify_intakemanifold(dataFile, pars, plot_validation_toggle)
-    %IDENTIFY volume of the INTAKE MANIFOLD
+%IDENTIFY volume of the INTAKE MANIFOLD
 
-    %% load data
-    data = load(dataFile);
-    meas = data.meas;
-    model = 'id_manifold_model.slx';
+%% load data
+data = load(dataFile);
+meas = data.meas;
+
 
 %% set fminsearch function
 efun_fminsearch = @(V_m) model_error(V_m, meas, pars, plot_validation_toggle);
@@ -13,10 +13,10 @@ efun_fminsearch = @(V_m) model_error(V_m, meas, pars, plot_validation_toggle);
 %% call fminsearch
 V_m = fminsearch(efun_fminsearch, pars.init.V_m, pars.fmin_opt);
 
-    %% validate
-    if plot_validation_toggle
-        % plot stuff
-    end
+%% validate
+if plot_validation_toggle
+    % plot stuff
+end
      
 end
 
@@ -44,3 +44,4 @@ if plot_validation_toggle
     drawnow
 end 
 end
+
