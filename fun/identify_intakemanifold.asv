@@ -22,11 +22,11 @@ end
 function [error] = model_error(V_m , meas, pars)
 %% error function for V_m
 
-[time, x, y] = sim(###insert model name here###,...
+[~, ~, p_m_model] = sim('some name',... %% ###insert model name here###
     [meas.time(1) meas.time(end)],...
     pars.sim_opt,...
-    [Data.time Data.mdotin]);
+    [meas.time meas.mdotin]); %% add other inputs
 
-error = sum((p_m_meas - p_m_model).^2);
+error = sum((meas.p_m.signals.values - p_m_model).^2);
 end
 
