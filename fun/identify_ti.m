@@ -38,7 +38,7 @@ function [error] = model_error(id_pars , meas, pars, plot_validation_toggle)
                             meas.u_l.signals.values,...
                             meas.P_l.signals.values]); %% add other inputs
 
-    error = sum((meas.omega_e.signals.values - w_e_model).^2);
+    error = sum(sqrt((meas.omega_e.signals.values - w_e_model).^2));
 
     if plot_validation_toggle
         get(0,'CurrentFigure'); % use current figure - do not set it on top in each update process
