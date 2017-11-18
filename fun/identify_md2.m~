@@ -1,0 +1,21 @@
+function [V_m] = identify_md2(dataFile, pars, plot_validation_toggle)
+%% IDENTIFY INTAKE MANIFOLD VOLUME [2]S
+% -------------------------------------------------------------------------
+% Identify intake manifold volume V_m by using the reduced model
+% id_manifol 2.
+% -------------------------------------------------------------------------
+
+%% Load Data
+    data = load(dataFile);
+    meas = meas.data;
+    model_file = 'id_manifold_2.slx';
+    
+%% Define function handle
+    efun_fminsearch = @(V_m) model_error_intakemfd2(V_m, meas, pars, model_file, plot_validation_toggle);
+    
+%% Minimization
+    V_m = fminsearch(efun_fminsearch, pars.init.V_m, pars.fmin_opt);
+
+
+end
+
