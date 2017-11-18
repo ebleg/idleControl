@@ -1,34 +1,33 @@
-function [eta_0, eta_1, beta_0, THETA_e] = identify_torque_and_intertia(dataFile, pars, plot_validation_toggle)
-%IDENTIFY volume of the INTAKE MANIFOLD
+function [eta_0, eta_1, beta_0, THETA_e] = identify_ti(dataFile, pars, plot_validation_toggle)
+%% IDENTIFY ENGINE TORQUE AND INERTIA PARAMETERS
+    %% Load data
+    data = load(dataFile);
+    meas = data.meas;
 
-%% load data
-data = load(dataFile);
-meas = data.meas;
-
-%% initialize V_m such that the model runs
-id_pars_init = [ pars.init.eta_0;
-                 pars.init.eta_1; 
-                 pars.init.beta_0;
-                 pars.init.THETA_e ];
-
-
-%% set fminsearch function
-efun_fminsearch = @(id_pars) model_error(id_pars, meas, pars, plot_validation_toggle);
+    %% Initialize V_m such that the model runs
+    id_pars_init = [ pars.init.eta_0;
+                     pars.init.eta_1; 
+                     pars.init.beta_0;
+                     pars.init.THETA_e ];
 
 
-%% call fminsearch
-id_pars = fminsearch(efun_fminsearch, id_pars_init, pars.fmin_opt);
+    %% Set fminsearch function
+    efun_fminsearch = @(id_pars) model_error(id_pars, meas, pars, plot_validation_toggle);
 
-%% declare output variables
-eta_0 = id_pars(1);
-eta_1 = id_pars(2);
-beta_0 = id_pars(3);
-THETA_e = id_pars(4);
-     
+
+    %% Call fminsearch
+    id_pars = fminsearch(efun_fminsearch, id_pars_init, pars.fmin_opt);
+
+    %% Declare output variables
+    eta_0 = id_pars(1);
+    eta_1 = id_pars(2);
+    beta_0 = id_pars(3);
+    THETA_e = id_pars(4);
+
 end
 
 function [error] = model_error(id_pars , meas, pars, plot_validation_toggle)
-%% error function for V_m
+%% Error function for T_e and THETA_e
 pars.id.eta_0 = id_pars(1);
 pars.id.eta_1 = id_pars(2);
 pars.id.beta_0 = id_pars(3);

@@ -2,15 +2,14 @@
 % -------------------------------------------------------------------------
 % This file contains all static parameters (that is, parameters that will
 % not be changed throughout the entire program, and configurations structs.
-% All parameters in this file are stored in pars.static.
+% All parameters in this file are stored in the f
 % -------------------------------------------------------------------------
-
 %% Simulation options
-    pars.fmin_opt = optimset('TolX', 10^-4, ... % configuration for fminsearch
+    pars.fmin_opt = optimset('TolX', 10^-4, ...
                              'TolFun',10^-4, ...
-                             'display','final', ...
+                             'display','iter', ...
                              'Maxit',100);
-    pars.sim_opt = simset('SrcWorkspace','current', ... % configuration for sim
+    pars.sim_opt = simset('SrcWorkspace','current', ...
                           'FixedStep', 1e-3, ...
                           'Solver','ode1');
 
@@ -43,4 +42,3 @@
     % Load Torque
     pars.static.eta_gen = 0.7; % efficiency generator [-]
 
-%% END

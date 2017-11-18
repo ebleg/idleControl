@@ -4,8 +4,9 @@ data = load('dynamic_0006_extracted_CORRECTED.mat');
 meas = data.meas;
 p_m = meas.p_m.signals.values;
 theta_m = meas.T_m.signals.values;
-pars.init.p_m = mean(p_m(1:100)); % [Pa]
-pars.init.theta_m = mean(theta_m(1:100)); % [K]
+%pars.init.p_m = mean(p_m(1:100)); % [Pa]
+%pars.init.theta_m = mean(theta_m(1:100)); % [K]
+pars.init.p_m = 2000
 clear data meas p_m theta_m;
 
 % Engine Torque Generation

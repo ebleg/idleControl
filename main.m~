@@ -20,9 +20,9 @@
     identify_throttle_toggle = 1;
     identify_engine_toggle = 1;
     identify_manifold_toggle = 1;
-    identify_inertia_toggle = 1;
+    identify_generator_toggle = 1;
 
-    plot_validation_toggle = 1;
+    plot_validation_toggle = 0;
     convert_data_toggle = 0;
 
 %% LOAD PARAMETERS
@@ -48,7 +48,7 @@
                 [pars.id.alpha_0, pars.id.alpha_1] = ...
                     identify_throttle('quasistatic_0007_extracted.mat', ...
                                       pars, ...
-                                      0);
+                                      plot_validation_toggle);
                 fprintf(' Done\n');
             end
             
@@ -57,28 +57,22 @@
                 [pars.id.gamma_0, pars.id.gamma_1] = ...
                     identify_engine('quasistatic_0007_extracted.mat', ...
                                     pars, ...
-                                    0);
+                                    plot_validation_toggle);
                 fprintf(' Done\n');
             end
             
             if identify_manifold_toggle
                 fprintf('$ Identify intake manifold volume ...\n');
                 [pars.id.V_m] = ...
-                    identify_intakemfd('dynamic_0006_extracted_CORRECTED.mat', ...
+                    identify_intakemfd('dynamic_0028_extracted.mat', ...
                                        pars, ...
                                        plot_validation_toggle);
                 fprintf('... Done\n');
             end
             
-            if identify_inertia_toggle
+            if identify_manifold_toggle
                 fprintf('$ Identify torque and inertia ...');
-                [pars.id.eta_0, ...
-                 pars.id.eta_1, ...
-                 pars.id.beta_0, ...
-                 pars.id.THETA_e] = ...
-                    identify_ti('dynamic_0028_extracted.mat', ...
-                                pars, ...
-                                0);
+                [pars.id.eta_0, pars.id.eta_1, pars.id.beta_0, pars.id.THETA_e] = identify_torque_and_inertia('dynamic_0028_extracted.mat', pars, plot_validation_toggle);
                 fprintf(' Done\n');
             end
         end
