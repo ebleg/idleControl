@@ -1,6 +1,6 @@
 %% INTIIAL VALUES
 % Intake Manifold
-data = load('dynamic_0006_extracted_CORRECTED.mat');
+data = load('dynamic_0028_extracted.mat');
 meas = data.meas;
 p_m = meas.p_m.signals.values;
 theta_m = meas.T_m.signals.values;
