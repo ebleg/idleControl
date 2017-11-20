@@ -6,8 +6,8 @@
 % -------------------------------------------------------------------------
 
 %% Simulation options
-    pars.fmin_opt = optimset('TolX', 10^-8, ... % configuration for fminsearch
-                             'TolFun',10^-8, ...
+    pars.fmin_opt = optimset('TolX', 10^-4, ... % configuration for fminsearch
+                             'TolFun',10^-4, ...
                              'display','iter', ...
                              'Maxit',1000,'Algorithm', 'sqp');
     pars.sim_opt = simset('SrcWorkspace','current', ... % configuration for sim

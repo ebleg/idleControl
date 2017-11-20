@@ -23,7 +23,7 @@ identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 1;
 
-plot_validation_toggle = 0;
+plot_validation_toggle = 1;
 convert_data_toggle = 0;
 
 validation_toggle = 1;
@@ -35,7 +35,7 @@ run params;
 
 %% create filename variables
 dataFile_id_q = 'quasistatic_0007_extracted.mat';
-dataFile_id_dyn = 'dynamic_0006_extracted_CORRECTED.mat';
+dataFile_id_dyn = 'dynamic_0028_extracted.mat';
 dataFile_val = 'dynamic_0005_extracted.mat';
 
 fprintf(' Done\n');
