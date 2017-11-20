@@ -19,6 +19,7 @@
     mod           Simulink models
     par           Parameter files
     bin           Additional MATLAB executables 
+    img           Saved identification/validation plots
     main.m        Master MATLAB files
     readme        (...)
     -----------------------------------------------------------------
