@@ -69,6 +69,7 @@ if identify_params
             plot_validation_toggle);
         fprintf(' Done\n');
     end
+    
 %     if identify_manifold_toggle
 %         fprintf('$ Identify intake manifold volume ...\n');
 %         [pars.id.V_m] = ...
@@ -105,14 +106,15 @@ end
 
 %% LOAD IDENTIFIED PARAMETERS
 %run parid;
-fprintf('\n------ END --------\n');
 
 
 %% Validate model
 if validation_toggle
+    fprintf('$ Validating model ... ');
     pars = parinit(dataFile_val, pars);
     validation(dataFile_val, pars)
+    fprintf('Done\n');
 end
 
 
-
+fprintf('\n------ END --------\n');
