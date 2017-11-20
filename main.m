@@ -15,17 +15,18 @@ close all;
 addpath(genpath('.'));
 
 %% TOGGLE OPTIONS
-identify_params = 0; % general switch
+identify_params = 1; % general switch
 
 identify_throttle_toggle = 1;
 identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
+identify_manifold2_toggle = 0;
 identify_inertia_toggle = 1;
 
 plot_validation_toggle = 1;
-convert_data_toggle = 0;
+convert_data_toggle = 1;
 
-validation_toggle = 1;
+validation_toggle = 0;
 
 %% LOAD PARAMETERS
 fprintf('------ MAIN -------\n \n');
@@ -34,7 +35,7 @@ run params;
 
 %% create filename variables
 dataFile_id_q = 'quasistatic_0007_extracted.mat';
-dataFile_id_dyn = 'dynamic_0028_extracted.mat';
+dataFile_id_dyn = 'dynamic_0006_extracted_CORRECTED.mat';
 dataFile_val = 'dynamic_0005_extracted.mat';
 
 fprintf(' Done\n');
@@ -70,16 +71,16 @@ if identify_params
         fprintf(' Done\n');
     end
     
-%     if identify_manifold_toggle
-%         fprintf('$ Identify intake manifold volume ...\n');
-%         [pars.id.V_m] = ...
-%             identify_md2(dataFile_id_dyn, ...
-%             pars, ...
-%             plot_validation_toggle);
-%     end
-%     
+    if identify_manifold2_toggle
+        fprintf('$ Identify intake manifold volume (model 2) ...\n');
+        [pars.id.V_m] = ...
+            identify_md2(dataFile_id_dyn, ...
+            pars, ...
+            plot_validation_toggle);
+    end
+    
     if identify_manifold_toggle
-        fprintf('$ Identify intake manifold volume ...\n');
+        fprintf('$ Identify intake manifold volume (model 1) ...\n');
         pars = parinit(dataFile_id_dyn, pars);
         [pars.id.V_m] = ...
             identify_intakemfd(dataFile_id_dyn, ...
@@ -105,8 +106,6 @@ else
 end
 
 %% LOAD IDENTIFIED PARAMETERS
-%run parid;
-
 
 %% Validate model
 if validation_toggle

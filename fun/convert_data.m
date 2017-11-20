@@ -11,7 +11,7 @@ function [] = convert_data(dataFile)
     field_name(strcmp(field_name, 'time')) = []; 
 
     % correct meas.time
-    time_vec = 0:0.001:floor(meas_err.time(end)); 
+    time_vec = (0:0.001:floor(meas_err.time(end)))'; 
 
     % interpolate accross all fields
     for k = 1:length(field_name)
@@ -26,7 +26,7 @@ function [] = convert_data(dataFile)
     meas.time = time_vec; 
 
     if ismac || isunix
-        save('./dat/measurementData/dynamic_0005_extracted_CORRECTED.mat', 'meas')
+        save('./dat/measurementData/dynamic_0006_extracted_CORRECTED.mat', 'meas')
     end
 
     if ispc
