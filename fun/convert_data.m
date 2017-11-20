@@ -26,7 +26,7 @@ function [] = convert_data(dataFile)
     meas.time = time_vec; 
 
     if ismac || isunix
-        save('./dat/measurementData/dynamic_0006_extracted_CORRECTED.mat', 'meas')
+        save('./dat/measurementData/dynamic_0005_extracted_CORRECTED.mat', 'meas')
     end
 
     if ispc
