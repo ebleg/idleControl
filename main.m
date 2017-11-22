@@ -7,8 +7,6 @@
 % Master file
 % -------------------------------------------------------------------------
 
-disp('main ...');
-
 %% PREPARE WORKSPACE
     clear;
     clc;
@@ -16,6 +14,7 @@ disp('main ...');
 
     addpath(genpath('.'));
 % -------------------------------------------------------------------------
+disp('main ...');
 
 %% TOGGLE OPTIONS
     % Global toggles
@@ -115,9 +114,9 @@ disp('main ...');
         end
     else
         % Load parameters that are identified before
-        fprintf($'Loading stored parameters ...');
+        fprintf('$ Loading previously identified parameters ...');
         load('pars.mat');
-        fprintf('$ Done\n');
+        fprintf('Done\n');
     end
 % -------------------------------------------------------------------------
 
