@@ -17,6 +17,7 @@ addpath(genpath('.'));
 %% TOGGLE OPTIONS
 identify_params = 0; % general switch
 linearize_model = 1;
+controller_design = 0;
 
 identify_throttle_toggle = 1;
 identify_engine_toggle = 1;
@@ -123,18 +124,16 @@ if linearize_model
     
     fprintf('$ Computing linearization ... ');
     system = linearize(pars);
-    save 'system.mat' system ; 
     fprintf('Done\n');
 else
     load('system.mat');
 end
 
 
-
-% if linearize_model
-%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
-% else
-%     load('system.mat');
-% end
+if controller_design
+   
+else
+    load('controller.mat')
+end
 
 fprintf('\n------ END --------\n');
