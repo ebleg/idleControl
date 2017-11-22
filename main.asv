@@ -15,7 +15,7 @@ close all;
 addpath(genpath('.'));
 
 %% TOGGLE OPTIONS
-identify_params = 0; % general switch
+identify_params = 1; % general switch
 linearize_model = 1;
 
 identify_throttle_toggle = 1;
@@ -120,9 +120,9 @@ end
 %% Normalize and linearize the model
 
 if linearize_model
-    [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+    [A_lin,B_lin,C_lin,D_lin] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
 else
-    load('system.mat');
+    load('system.mat')
 end
 
 
