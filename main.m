@@ -141,7 +141,7 @@ end
 
 
 if controller_design
-    
+    pars = control_design(system, pars)
 else
     load('controller.mat')
 end
