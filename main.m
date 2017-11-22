@@ -107,8 +107,6 @@ else
     load('pars.mat');
 end
 
-
-
 %% Validate model
 if validation_toggle
     fprintf('$ Validating model ... ');
@@ -119,10 +117,9 @@ end
 
 %% Normalize and linearize the model
 
-if linearize_model
-    fprintf('$ Linearize system ...');
-    system = linearize(pars);
-    fprintf('Done\n');
+fprintf('$ Computing nominal inputs ... ');
+[pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
+fprintf('Done\n');
 
     save 'system.mat' system ; 
     fprintf('Done\n');
@@ -132,5 +129,10 @@ end
 
 
 
+% if linearize_model
+%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+% else
+%     load('system.mat');
+% end
 
 fprintf('\n------ END --------\n');
