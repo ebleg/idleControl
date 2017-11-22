@@ -120,7 +120,12 @@ end
 %% Normalize and linearize the model
 
 if linearize_model
-    [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+    fprintf('$ Linearize system ...');
+    system = linearize(pars);
+    fprintf('Done\n');
+
+    save 'system.mat' system ; 
+    fprintf('Done\n');
 else
     load('system.mat');
 end
