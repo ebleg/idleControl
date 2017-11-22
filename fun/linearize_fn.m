@@ -1,20 +1,22 @@
-function [system] = linearize(pars)
+function [system] = linearize_fn(pars)
 %% LINEARIZE
 % Linearize without delays
     [system.ss.nodelay.A, ...
      system.ss.nodelay.B, ...
      system.ss.nodelay.C, ...
      system.ss.nodelay.D] = ...
-        linmod(full_model_split, [1,1], [1,1,1,1]);
+        linmod('model_norm_nodelay', [1,1], [1,1,1,1]);
 
-    system.tf.lin_nodelay = tf(ss([system.ss.nodelay.A, ...
+    system.tf.lin_nodelay = tf(ss(system.ss.nodelay.A, ...
                                    system.ss.nodelay.B, ...
                                    system.ss.nodelay.C, ...
-                                   system.ss.nodelay.D]));
+                                   system.ss.nodelay.D));
 
-    system.tf.delay1 = pade(pars.nom.delay1, 4);
-    system.tf.delay2 = pade(pars.nom.delay2, 4);
-
+    [num1 , den1]  = pade(pars.nom.delay1, 4);
+    [num2 , den2]  = pade(pars.nom.delay2, 4);
+    
+    system.tf.delay1 = tf(num1 , den1);
+    system.tf.delay2 = tf(num2 , den2);
     %% use iconnect functionality
     % create ic
     u1 = icsignal(1); u2 = icsignal(1); u3 = icsignal(1); u4 = icsignal(1);
@@ -33,7 +35,7 @@ function [system] = linearize(pars)
 
     system.tf.lin = tf(Q.System);
     [system.ss.lin.A , system.ss.lin.B , system.ss.lin.C , system.ss.lin.D ] =...
-        minreal(ssdata(system.tf.lin));
+        ssdata(minreal(system.tf.lin));
 
 
     disp('If this outputs 10x10, a miracle occured: \n')
