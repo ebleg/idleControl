@@ -139,7 +139,7 @@ if linearize_model
     
     % Run the steady state model and extracting delays and engine speed
     fprintf('$ Computing nominal outputs and delays ... ');
-    [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_nominal_outputs(pars);
+    [pars.nom.p_m, pars.nom.T_e, pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_nominal_outputs(pars);
     fprintf('Done\n');
     
     % Linearize normalized model
@@ -148,7 +148,7 @@ if linearize_model
     fprintf('Done\n');
     
     if plot_validation_toggle
-        
+        linearization_val_plot(system,pars,dataFile_id_q);
         
     end
     
