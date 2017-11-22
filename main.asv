@@ -15,7 +15,7 @@ close all;
 addpath(genpath('.'));
 
 %% TOGGLE OPTIONS
-identify_params = 1; % general switch
+identify_params = 0; % general switch
 linearize_model = 1;
 
 identify_throttle_toggle = 1;
@@ -107,8 +107,6 @@ else
     load('pars.mat');
 end
 
-
-
 %% Validate model
 if validation_toggle
     fprintf('$ Validating model ... ');
@@ -118,14 +116,25 @@ if validation_toggle
 end
 
 %% Normalize and linearize the model
-
 if linearize_model
-    [A_lin,B_lin,C_lin,D_lin] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+    fprintf('$ Computing nominal inputs ... ');
+    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
+    fprintf('Done\n');
+
+
+
+    save 'system.mat' system ; 
+    fprintf('Done\n');
 else
-    load('system.mat')
+    load('system.mat');
 end
 
 
 
+% if linearize_model
+%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+% else
+%     load('system.mat');
+% end
 
 fprintf('\n------ END --------\n');

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
@@ -138,3 +139,4 @@ fprintf('delay2: %f\n', pars.nom.delay2);
 % end
 
 fprintf('\n------ END --------\n');
+
