@@ -15,7 +15,7 @@ close all;
 addpath(genpath('.'));
 
 %% TOGGLE OPTIONS
-identify_params = 1; % general switch
+identify_params = 0; % general switch
 
 identify_throttle_toggle = 1;
 identify_engine_toggle = 1;
