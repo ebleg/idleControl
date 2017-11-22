@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
