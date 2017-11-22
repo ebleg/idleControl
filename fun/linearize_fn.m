@@ -38,7 +38,7 @@ function [system] = linearize_fn(pars)
         ssdata(minreal(system.tf.lin));
 
 
-    disp('If this outputs 10x10, a miracle occured: \n')
+    disp('If this outputs 10x10, a miracle occured:')
     disp(size(system.ss.lin.A));
 
 end
