@@ -123,13 +123,7 @@ fprintf('Done\n');
 fprintf('u_alpha_nomin: %f\n', pars.nom.u_alpha);
 fprintf('du_ign_nomin: %f', pars.nom.du_ign);
 
-fprintf('$ Computing nominal outputs and delays ... ');
-[pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_normalized_outputs(pars);
-fprintf('Done\n');
-fprintf('w_e_nom: %f\n', pars.nom.w_e);
-fprintf('delay1: %f\n', pars.nom.delay1);
-fprintf('delay2: %f\n', pars.nom.delay2);
-
+[pars.nom.w_e, pars.
 
 % if linearize_model
 %     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
