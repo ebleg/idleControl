@@ -17,6 +17,7 @@ addpath(genpath('.'));
 %% TOGGLE OPTIONS
 identify_params = 0; % general switch
 linearize_model = 1;
+controller_design = 0;
 
 identify_throttle_toggle = 1;
 identify_engine_toggle = 1;
@@ -116,19 +117,31 @@ if validation_toggle
 end
 
 %% Normalize and linearize the model
+if linearize_model
+    fprintf('$ Computing nominal inputs ... ');
+    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
+    fprintf('Done\n');
+    fprintf('u_alpha_nomin: %f\n', pars.nom.u_alpha);
+    fprintf('du_ign_nomin: %f', pars.nom.du_ign);
+    
+    fprintf('$ Computing nominal outputs and delays ... ');
+    [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_normalized_outputs(pars);
+    fprintf('Done\n');
+    fprintf('w_e_nom: %f\n', pars.nom.w_e);
 
-fprintf('$ Computing nominal inputs ... ');
-[pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
-fprintf('Done\n');
-fprintf('u_alpha_nomin: %f\n', pars.nom.u_alpha);
-fprintf('du_ign_nomin: %f', pars.nom.du_ign);
+    fprintf('$ Computing linearization ... ');
+    system = linearize(pars);
+    fprintf('Done\n');
+else
+    load('system.mat');
+end
 
-[pars.nom.w_e, pars.
 
-% if linearize_model
-%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
-% else
-%     load('system.mat');
-% end
+if controller_design
+    
+else
+    load('controller.mat')
+end
 
 fprintf('\n------ END --------\n');
+

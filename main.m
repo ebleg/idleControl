@@ -127,18 +127,13 @@ if linearize_model
     fprintf('$ Computing nominal outputs and delays ... ');
     [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_normalized_outputs(pars);
     fprintf('Done\n');
-    fprintf('w_e_nom: %f\n', pars.nom.w_e);
-    fprintf('delay1: %f\n', pars.nom.delay1);
-    fprintf('delay2: %f\n', pars.nom.delay2);
-    
-    
+
     fprintf('$ Computing linearization ... ');
     system = linearize(pars);
     fprintf('Done\n');
 else
     load('system.mat');
 end
-
 
 if controller_design
     
