@@ -107,8 +107,6 @@ else
     load('pars.mat');
 end
 
-
-
 %% Validate model
 if validation_toggle
     fprintf('$ Validating model ... ');
@@ -124,8 +122,5 @@ if linearize_model
 else
     load('system.mat');
 end
-
-
-
 
 fprintf('\n------ END --------\n');
