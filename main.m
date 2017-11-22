@@ -140,7 +140,7 @@ disp('main ...');
         
         % Run the steady state model and extracting delays and engine speed
         fprintf('$ Computing nominal outputs and delays ... ');
-        [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_normalized_outputs(pars);
+        [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_nominal_outputs(pars);
         fprintf('Done\n');
 
         % Linearize normalized model

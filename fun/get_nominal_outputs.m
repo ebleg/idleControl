@@ -1,4 +1,4 @@
-function [w_e_nom, delay1, delay2] = get_normalized_outputs(pars)
+function [w_e_nom, delay1, delay2] = get_nominal_outputs(pars)
 %% RUN STEADY STATE SIMULATION TO GET NORMALIZED REFERENCES
     u_alpha_input = pars.nom.u_alpha;
     du_ign_input = pars.nom.du_ign;
