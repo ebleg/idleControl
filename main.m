@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
@@ -119,8 +120,18 @@ end
 %% Normalize and linearize the model
 if linearize_model
     fprintf('$ Computing nominal inputs ... ');
-    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
+    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
     fprintf('Done\n');
+    fprintf('u_alpha_nomin: %f\n', pars.nom.u_alpha);
+    fprintf('du_ign_nomin: %f', pars.nom.du_ign);
+    
+    fprintf('$ Computing nominal outputs and delays ... ');
+    [pars.nom.w_e, pars.nom.delay1, pars.nom.delay2] = get_normalized_outputs(pars);
+    fprintf('Done\n');
+    fprintf('w_e_nom: %f\n', pars.nom.w_e);
+    fprintf('delay1: %f\n', pars.nom.delay1);
+    fprintf('delay2: %f\n', pars.nom.delay2);
+    
     
     fprintf('$ Computing linearization ... ');
     system = linearize(pars);
@@ -131,9 +142,10 @@ end
 
 
 if controller_design
-   
+    
 else
     load('controller.mat')
 end
 
 fprintf('\n------ END --------\n');
+
