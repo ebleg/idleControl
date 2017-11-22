@@ -20,7 +20,7 @@ disp('main ...');
 % Global toggles
 identify_params = 0; % general switch
 linearize_model = 1;
-controller_design = 1;
+controller_design = 0;
 
 % Specific toggles
 identify_throttle_toggle = 1;
