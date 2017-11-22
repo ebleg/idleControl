@@ -117,10 +117,14 @@ end
 
 %% Normalize and linearize the model
 
-if linearize_model
-    [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
-else
-    load('system.mat');
-end
+fprintf('$ Computing nominal inputs ... ');
+[pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
+fprintf('Done\n');
+
+% if linearize_model
+%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+% else
+%     load('system.mat');
+% end
 
 fprintf('\n------ END --------\n');
