@@ -116,11 +116,13 @@ if validation_toggle
 end
 
 %% Normalize and linearize the model
-
-fprintf('$ Computing nominal inputs ... ');
-[pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
-fprintf('Done\n');
-
+if linearize_model
+    fprintf('$ Computing nominal inputs ... ');
+    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
+    fprintf('Done\n');
+    
+    fprintf('$ Computing linearization ... ');
+    system = linearize(pars);
     save 'system.mat' system ; 
     fprintf('Done\n');
 else

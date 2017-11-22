@@ -107,8 +107,6 @@ else
     load('pars.mat');
 end
 
-
-
 %% Validate model
 if validation_toggle
     fprintf('$ Validating model ... ');
@@ -118,45 +116,14 @@ if validation_toggle
 end
 
 %% Normalize and linearize the model
-
 if linearize_model
-    fprintf('$ Linearize system without delays ...');
-    
-    [system.ss.nodelay.A,system.ss.nodelay.B,...
-        system.ss.nodelay.C,system.ss.nodelay.D] = ...
-        linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
-    
-    system.tf.lin_nodelay = tf(ss([system.ss.nodelay.A, ...
-                            system.ss.nodelay.B, ...
-                            system.ss.nodelay.C, ...
-                            system.ss.nodelay.D]));
+    fprintf('$ Computing nominal inputs ... ');
+    [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0025_extracted.mat');
     fprintf('Done\n');
-    
-    fprintf('$ Approximate delays seperately and add them to the transfer functions ...')
-    system.tf.delay1 = pade(pars.nom.delay1,4);
-    system.tf.delay2 = pade(pars.nom.delay2,4);
-    
-    
-    
-    %% use iconnect functionality
-    % create ic
-    u1 = icsignal(1); u2 = icsignal(1); u3 = icsignal(1); u4 = icsignal(1);
-    y1 = icsignal(1); y2 = icsignal(1); y3 = icsignal(1);
-    
-    Q = iconnect;
-    Q.input = [u1 ; u2 ; u3 ; u4];
-    Q.output = [y1 ; y2 ; y3];
-    
-    Q.Equation{1} = equate(u3 , system.tf.delay1 * y2);
-    Q.Equation{2} = equate(u4 , system.tf.delay2 * y3);
-    Q.Equation{3} = equate(y1 , system.tf.lin_nodelay(1,1) * u1 + ...
-                    system.tf.lin_nodelay(1,2) * u2 + ...
-                    system.tf.lin_nodelay(1,3) * u3 + ...
-                    system.tf.lin_nodelay(1,4) * u4);
-    
-    system.tf.lin = tf(Q.System);
-    system.ss.lin = ssdata(syste
-    
+
+
+
+    save 'system.mat' system ; 
     fprintf('Done\n');
 else
     load('system.mat');
@@ -164,5 +131,10 @@ end
 
 
 
+% if linearize_model
+%     [system.lin.A,system.lin.B,system.lin.C,system.lin.D] = linmod('model_norm_nodelay.slx',[1,1],[1,1,1,1]);
+% else
+%     load('system.mat');
+% end
 
 fprintf('\n------ END --------\n');
