@@ -20,9 +20,9 @@ u = [u1 , u2];
     [ meas.time, u1, u2 ]); %% add other inputs
 
 get(0,'CurrentFigure'); % use current figure - do not set it on top in each update process
-%plot(meas.time, meas.omega_e.signals.values./pars.nom.w_e, 'b');hold on;grid on;
+plot(meas.time, meas.omega_e.signals.values./pars.nom.w_e, 'b');hold on;grid on;
 plot(time_lin,y_lin,'g');
-%plot(time_nl,y_nl,'r');
+plot(time_nl,y_nl,'r');
 ylabel('Engine Speed [rad/s]');
 set(gca,'YLim',[min(meas.omega_e.signals.values./pars.nom.w_e) - ...
     1/10*mean(meas.omega_e.signals.values./pars.nom.w_e) ...

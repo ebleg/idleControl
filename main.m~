@@ -137,11 +137,9 @@ if linearize_model
     [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
     fprintf('Done\n');
     
-    
-    
     % Run the steady state model and extracting delays and engine speed
     fprintf('$ Computing nominal outputs and delays ... ');
-    [pars.nom.p_m, pars.nom.w_e, pars.nom.delay1, pars.nom.delay2, pars.nom.m_dot_beta_omega] = get_nominal_outputs(pars);
+    [pars.nom.p_m, pars.nom.T_e, pars.nom.w_e, pars.nom.delay1, pars.nom.delay2, pars.nom.m_dot_beta_] = get_nominal_outputs(pars);
     fprintf('Done\n');
     
     % Linearize normalized model
@@ -151,7 +149,7 @@ if linearize_model
     fprintf('Done\n');
     
     if plot_validation_toggle
-        linearization_val_plot(system,pars,dataFile_id_dyn);
+        linearization_val_plot(system,pars,dataFile_id_q);
         
     end
     
