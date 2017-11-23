@@ -19,6 +19,8 @@ system.tf.lin_nodelay = tf(ss(system.ss.nodelay.A, ...
 
 system.tf.delay1 = tf(num1 , den1);
 system.tf.delay2 = tf(num2 , den2);
+system.ss.delay1 = ssdata(system.tf.delay1 );
+system.ss.delay2 = ssdata(system.tf.delay2 );
 
 %% use iconnect functionality to connect the systems
 % create ic instance
@@ -50,11 +52,12 @@ Q.Equation{5} = equate(y3 , system.tf.lin_nodelay(3,1) * u1 + ...
 % Get resulting system from iconnect
 system.tf.lin = tf(Q.System);
 [system.ss.lin.A , system.ss.lin.B , system.ss.lin.C , system.ss.lin.D ] =...
-    ssdata(minreal(system.tf.lin));
+    ssdata(system.tf.lin);
+system.ss.lin_minreal = minreal(ss(system.tf.lin));
 
 % check if size is correct
 disp('If this outputs 10x10, a miracle occured:')
-disp(size(system.ss.lin.A));
+disp(size(system.ss.lin_minreal));
 
 end
 
