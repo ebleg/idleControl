@@ -145,6 +145,7 @@ if linearize_model
     % Linearize normalized model
     fprintf('$ Computing linearization ... ');
     [system] = linearize_fn(pars);
+%     debug_fn(dataFile_id_q, pars, system);
     fprintf('Done\n');
     
     if plot_validation_toggle
@@ -159,7 +160,7 @@ end
 if controller_design
     pars = control_fn(system, pars);
 else
-    load('controller.mat')
+%    load('controller.mat')
 end
 % -------------------------------------------------------------------------
 
