@@ -1,7 +1,7 @@
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
-% ETH Zurich - Institute for Dynamics and Systems Constrol
+% ETH Zurich - Institute for Dynamics and Systems Control
 % Engine Systems (November 2017)
 % -------------------------------------------------------------------------
 % Master file
