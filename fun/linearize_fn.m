@@ -56,8 +56,10 @@ system.tf.lin = tf(Q.System);
 system.ss.lin_minreal = minreal(ss(system.tf.lin));
 
 % check if size is correct
-disp('If this outputs 10x10, a miracle occured:')
-disp(size(system.ss.lin_minreal));
+disp('Done')
+%disp(size(system.ss.lin_minreal));
+
+save './par/system.mat' system;
 
 end
 
