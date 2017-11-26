@@ -19,8 +19,8 @@ disp('main ...');
 %% TOGGLE OPTIONS
 % Global toggles
 identify_params = 0; % general switch
-linearize_model = 1;
-controller_design = 0;
+linearize_model = 0;
+controller_design = 1;
 
 % Specific toggles
 identify_throttle_toggle = 1;
@@ -28,6 +28,7 @@ identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 0;
+extend_system = 1;
 
 % Additional toggles
 plot_validation_toggle = 1;
@@ -135,9 +136,7 @@ if linearize_model
     % Compute the nominal input values for the steady-state model run
     fprintf('$ Computing nominal inputs ... ');
     [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
-    fprintf('Done\n');
-    
-    
+    fprintf('Done\n'); 
     
     % Run the steady state model and extracting delays and engine speed
     fprintf('$ Computing nominal outputs and delays ... ');
@@ -147,23 +146,35 @@ if linearize_model
     % Linearize normalized model
     fprintf('$ Computing linearization ... ');
     [system] = linearize_fn(pars);
-%     debug_fn(dataFile_id_q, pars, system);
+    % debug_fn(dataFile_id_q, pars, system);
     fprintf('Done\n');
     
     if plot_validation_toggle
         linearization_val_plot(system,pars,dataFile_id_dyn);
-        
     end
-    
+            
 else % in case the model is already linearized
     load('system.mat');
 end
 
-if controller_design
-    pars = control_fn(system, pars);
-else
-%    load('controller.mat')
-end
+% Just making notation a bit less complicated...
+system.lin = system.ss.lin_minreal;
 % -------------------------------------------------------------------------
 
-disp('$ End of main reached');
+%% CONTROLLER SYNTHESIS
+run des_params
+
+if controller_design
+    % System extension with integrator
+    if extend_system
+        fprintf('$ Extending system ... ');
+        system.ext = get_extended_system(system.lin, pars);
+        fprintf('Done\n');
+    end
+    %pars = control_fn(system, pars);
+    
+else
+    load('controller.mat')
+end
+
+disp('End of main reached');

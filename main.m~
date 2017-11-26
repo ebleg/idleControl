@@ -28,6 +28,7 @@ identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 0;
+extend_system = 0;
 
 % Additional toggles
 plot_validation_toggle = 1;
@@ -135,33 +136,43 @@ if linearize_model
     % Compute the nominal input values for the steady-state model run
     fprintf('$ Computing nominal inputs ... ');
     [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
-    fprintf('Done\n');
+    fprintf('Done\n'); 
     
     % Run the steady state model and extracting delays and engine speed
     fprintf('$ Computing nominal outputs and delays ... ');
-    [pars.nom.p_m, pars.nom.T_e, pars.nom.w_e, pars.nom.delay1, pars.nom.delay2, pars.nom.m_dot_beta_] = get_nominal_outputs(pars);
+    [pars.nom.p_m, pars.nom.w_e, pars.nom.delay1, pars.nom.delay2, pars.nom.m_dot_beta_omega] = get_nominal_outputs(pars);
     fprintf('Done\n');
     
     % Linearize normalized model
     fprintf('$ Computing linearization ... ');
     [system] = linearize_fn(pars);
-%     debug_fn(dataFile_id_q, pars, system);
+    % debug_fn(dataFile_id_q, pars, system);
     fprintf('Done\n');
     
     if plot_validation_toggle
-        linearization_val_plot(system,pars,dataFile_id_q);
-        
+        linearization_val_plot(system,pars,dataFile_id_dyn);
     end
-    
+            
 else % in case the model is already linearized
     load('system.mat');
 end
 
+% Just making notation a bit less complicated...
+system.lin = system.ss.lin_minreal;
+
 if controller_design
     pars = control_fn(system, pars);
 else
-%    load('controller.mat')
+    load('controller.mat')
 end
 % -------------------------------------------------------------------------
+
+%% CONTROLLER SYNTHESIS
+% System extension with integrator
+if extend_system
+    system.ext = g
+end
+
+
 
 disp('$ End of main reached');
