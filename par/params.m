@@ -38,7 +38,7 @@
     % Engine Airmass Flow
     pars.static.V_c =  2.48*10^-4; % Compression volume [m^3]
     pars.static.kappa = 1.35; % [-]
-    pars.static.p_e = 100000; %[Pa] most random guess 
+    pars.static.p_e = 101325; %[Pa] most random guess 
 
     % Load Torque
     pars.static.eta_gen = 0.7; % efficiency generator [-]

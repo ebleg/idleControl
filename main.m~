@@ -1,7 +1,7 @@
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
-% ETH Zurich - Institute for Dynamics and Systems Control
+% ETH Zurich - Institute for Dynamics and Systems Constrol
 % Engine Systems (November 2017)
 % -------------------------------------------------------------------------
 % Master file
@@ -19,19 +19,19 @@ disp('main ...');
 %% TOGGLE OPTIONS
 % Global toggles
 identify_params = 0; % general switch
-linearize_model = 0;
-controller_design = 1;
+linearize_model = 1;
+controller_design = 0;
 
 % Specific toggles
-identify_throttle_toggle = 0;
-identify_engine_toggle = 0;
-identify_manifold_toggle = 0;
+identify_throttle_toggle = 1;
+identify_engine_toggle = 1;
+identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 0;
-extend_system = 1;
+extend_system = 0;
 
 % Additional toggles
-plot_validation_toggle = 0;
+plot_validation_toggle = 1;
 convert_data_toggle = 0;
 
 validation_toggle = 0;
@@ -159,22 +159,20 @@ end
 
 % Just making notation a bit less complicated...
 system.lin = system.ss.lin_minreal;
-% -------------------------------------------------------------------------
-
-%% CONTROLLER SYNTHESIS
-run des_params
 
 if controller_design
-    % System extension with integrator
-    if extend_system
-        fprintf('$ Extending system ... ');
-        system.ext = get_extended_system(system.lin, pars);
-        fprintf('Done\n');
-    end
-    %pars = control_fn(system, pars);
-    
+    pars = control_fn(system, pars);
 else
     load('controller.mat')
 end
+% -------------------------------------------------------------------------
 
-disp('End of main reached');
+%% CONTROLLER SYNTHESIS
+% System extension with integrator
+if extend_system
+    system.ext = g
+end
+
+
+
+disp('$ End of main reached');
