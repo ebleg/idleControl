@@ -1,4 +1,4 @@
-function [sys] = get_extended_system(old_ss, pars)
+function [extended_sys] = get_extended_system(old_ss, pars)
 %% EXTENDS OLD LINEAR SS SYTEM WITH AN INTEGRATOR PART TO INSURE 0 SS ERROR 
 
 A_e = 0;
@@ -8,7 +8,7 @@ D_e = eye(2);
 
 ext = ss(A_e, B_e, C_e, D_e);
 
-sys = series(ext, old_ss);
+extended_sys = series(ext, old_ss);
 
 end
 

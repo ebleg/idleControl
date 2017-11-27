@@ -173,8 +173,8 @@ if controller_design
     end
     %pars = control_fn(system, pars);
     
-else
-    load('controller.mat')
-end
+%else
+%   load('controller.mat')
+%end
 
 disp('End of main reached');
