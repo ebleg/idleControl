@@ -7,4 +7,4 @@ r2 = 1;
 pars.des.R_ctrl = [r1 0; 0 r2];
 clear r1 r2
 
-pars.des.q = 1;
+pars.des.q = 0.1;

@@ -19,7 +19,7 @@ disp('main ...');
 %% TOGGLE OPTIONS
 % Global toggles
 identify_params = 0; % general switch
-linearize_model = 0;
+linearize_model = 1;
 controller_design = 1;
 
 % Specific toggles
@@ -179,8 +179,11 @@ if controller_design
 
     % Create observer system
     fprintf('$ Creating observer system ... ');
-    system.obs = create_observer(system.ext, pars);
+    pars.des.L = create_observer(system.ext, pars);
     fprintf('Done\n');
+    
+    % check observer with simulink simulation
+    observer_val_plot(system,pars,dataFile_id_dyn)
 end
 
     %pars = control_fn(system, pars);
