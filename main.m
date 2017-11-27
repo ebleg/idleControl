@@ -23,15 +23,15 @@ linearize_model = 0;
 controller_design = 1;
 
 % Specific toggles
-identify_throttle_toggle = 0;
-identify_engine_toggle = 0;
-identify_manifold_toggle = 0;
+identify_throttle_toggle = 1;
+identify_engine_toggle = 1;
+identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 0;
 extend_system = 1;
 
 % Additional toggles
-plot_validation_toggle = 0;
+plot_validation_toggle = 1;
 convert_data_toggle = 0;
 
 validation_toggle = 0;
