@@ -171,6 +171,18 @@ if controller_design
         system.ext = get_extended_system(system.lin, pars);
         fprintf('Done\n');
     end
+    
+    % Determine feedback gain 
+    fprintf('$ Computing feedback gain ... ');
+    pars.des.K = get_feedback_gain(system.ext, pars);
+    fprintf('Done\n');
+
+    % Create observer system
+    fprintf('$ Creating observer system ... ');
+    system.obs = create_observer(system.ext, pars);
+    fprintf('Done\n');
+end
+
     %pars = control_fn(system, pars);
     
 %else
