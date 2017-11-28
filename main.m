@@ -168,7 +168,7 @@ if controller_design
     % System extension with integrator
     if extend_system
         fprintf('$ Extending system ... ');
-        system.ext = get_extended_system(system.lin, pars);
+        [system.ext, system.extension] = get_extended_system(system.lin, pars);
         fprintf('Done\n');
     end
     
@@ -185,6 +185,8 @@ if controller_design
     % check observer with simulink simulation
     observer_val_plot(system,pars,dataFile_id_dyn)
 end
+
+    system.control = ss(get_controller_matrices(system, pars));
 
     %pars = control_fn(system, pars);
     

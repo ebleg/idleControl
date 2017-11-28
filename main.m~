@@ -1,7 +1,7 @@
 %% IDLE SPEED CONTROL EXERCISE
 % -------------------------------------------------------------------------
 % Michael Chadwick, Twan van der Sijs & Emiel Legrand
-% ETH Zurich - Institute for Dynamics and Systems Constrol
+% ETH Zurich - Institute for Dynamics and Systems Control
 % Engine Systems (November 2017)
 % -------------------------------------------------------------------------
 % Master file
@@ -20,7 +20,7 @@ disp('main ...');
 % Global toggles
 identify_params = 0; % general switch
 linearize_model = 1;
-controller_design = 0;
+controller_design = 1;
 
 % Specific toggles
 identify_throttle_toggle = 1;
@@ -28,7 +28,7 @@ identify_engine_toggle = 1;
 identify_manifold_toggle = 1;
 identify_manifold2_toggle = 0;
 identify_inertia_toggle = 0;
-extend_system = 0;
+extend_system = 1;
 
 % Additional toggles
 plot_validation_toggle = 1;
@@ -159,20 +159,39 @@ end
 
 % Just making notation a bit less complicated...
 system.lin = system.ss.lin_minreal;
-
-if controller_design
-    pars = control_fn(system, pars);
-else
-    load('controller.mat')
-end
 % -------------------------------------------------------------------------
 
 %% CONTROLLER SYNTHESIS
-% System extension with integrator
-if extend_system
-    system.ext = g
+run des_params
+
+if controller_design
+    % System extension with integrator
+    if extend_system
+        fprintf('$ Extending system ... ');
+        [system.ext, system.extension] = get_extended_system(system.lin, pars);
+        fprintf('Done\n');
+    end
+    
+    % Determine feedback gain 
+    fprintf('$ Computing feedback gain ... ');
+    pars.des.K = get_feedback_gain(system.ext, pars);
+    fprintf('Done\n');
+
+    % Create observer system
+    fprintf('$ Creating observer system ... ');
+    [pars.des.L, system.obs] = create_observer(system, pars);
+    fprintf('Done\n');
+    
+    % check observer with simulink simulation
+    observer_val_plot(system,pars,dataFile_id_dyn)
 end
 
+    system.control = ss(get_controller_matrices(system, pars));
 
+    %pars = control_fn(system, pars);
+    
+%else
+%   load('controller.mat')
+%end
 
-disp('$ End of main reached');
+disp('End of main reached');
