@@ -186,7 +186,7 @@ if controller_design
     observer_val_plot(system,pars,dataFile_id_dyn)
 end
 
-    system.control = ss(get_controller_matrices(system, pars));
+    [system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
 
     %pars = control_fn(system, pars);
     
