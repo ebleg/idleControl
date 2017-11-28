@@ -31,7 +31,7 @@ identify_inertia_toggle = 0;
 extend_system = 1;
 
 % Additional toggles
-plot_validation_toggle = 1;
+plot_validation_toggle = 0;
 convert_data_toggle = 0;
 
 validation_toggle = 0;
@@ -136,7 +136,7 @@ if linearize_model
     % Compute the nominal input values for the steady-state model run
     fprintf('$ Computing nominal inputs ... ');
     [pars.nom.u_alpha, pars.nom.du_ign] = get_nominal_inputs('dynamic_0005_extracted.mat');
-    fprintf('Done\n'); 
+    fprintf('Done\n');
     
     % Run the steady state model and extracting delays and engine speed
     fprintf('$ Computing nominal outputs and delays ... ');
@@ -152,7 +152,7 @@ if linearize_model
     if plot_validation_toggle
         linearization_val_plot(system,pars,dataFile_id_dyn);
     end
-            
+    
 else % in case the model is already linearized
     load('system.mat');
 end
@@ -172,11 +172,11 @@ if controller_design
         fprintf('Done\n');
     end
     
-    % Determine feedback gain 
+    % Determine feedback gain
     fprintf('$ Computing feedback gain ... ');
     pars.des.K = get_feedback_gain(system.ext, pars);
     fprintf('Done\n');
-
+    
     % Create observer system
     fprintf('$ Creating observer system ... ');
     [pars.des.L, system.obs] = create_observer(system, pars);
@@ -186,13 +186,20 @@ if controller_design
     observer_val_plot(system,pars,dataFile_id_dyn)
 end
 
+<<<<<<< HEAD
     [system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
     [system.disc] = discretize_controller_matrices(system);
+=======
+[system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
+system.ss.cont = ss(system.cont.A,system.cont.B,system.cont.C,system.cont.D);
+system.tf.cont = tf(system.ss.cont);
+%pars = control_fn(system, pars);
+>>>>>>> 947d9d2a386576e1573a8e73aa4224acdcbacd83
 
-    %pars = control_fn(system, pars);
-    
 %else
 %   load('controller.mat')
 %end
-
+if ~validation_toggle
+    close all
+end
 disp('End of main reached');
