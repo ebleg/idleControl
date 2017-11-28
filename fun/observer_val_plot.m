@@ -18,6 +18,7 @@ get(0,'CurrentFigure'); % use current figure - do not set it on top in each upda
 hold on;grid on;
 plot(t,y(:,1),'g');
 plot(t,y(:,2),'r');
+plot(t,y(:,3),'b');
 ylabel('Engine Speed [rad/s]');
 % set(gca,'YLim',[min(meas.omega_e.signals.values./pars.nom.w_e) - ...
 %     1/10*mean(meas.omega_e.signals.values./pars.nom.w_e) ...
