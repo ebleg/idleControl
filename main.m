@@ -186,15 +186,10 @@ if controller_design
     observer_val_plot(system,pars,dataFile_id_dyn)
 end
 
-<<<<<<< HEAD
-    [system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
-    [system.disc] = discretize_controller_matrices(system);
-=======
 [system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
 system.ss.cont = ss(system.cont.A,system.cont.B,system.cont.C,system.cont.D);
 system.tf.cont = tf(system.ss.cont);
 %pars = control_fn(system, pars);
->>>>>>> 947d9d2a386576e1573a8e73aa4224acdcbacd83
 
 %else
 %   load('controller.mat')
