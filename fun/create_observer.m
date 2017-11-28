@@ -1,11 +1,10 @@
-function [L] = create_observer(system,pars)
+function [L, observer] = create_observer(system,pars)
 %% CREATES SS MODEL FOR OBSERVER
 % Determine observer gain
 B_in = system.ext.B*system.ext.B';
 L  = (lqr(system.ext.A', system.ext.C', B_in, pars.des.q))';
 % 
 % % Build observer system
-% % Convert matrices to transfer functions
 A = system.ext.A;
 B = system.ext.B;
 C = system.ext.C;

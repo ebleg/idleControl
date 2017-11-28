@@ -179,7 +179,7 @@ if controller_design
 
     % Create observer system
     fprintf('$ Creating observer system ... ');
-    pars.des.L = create_observer(system, pars);
+    [pars.des.L, system.obs] = create_observer(system, pars);
     fprintf('Done\n');
     
     % check observer with simulink simulation
