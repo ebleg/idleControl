@@ -187,6 +187,7 @@ if controller_design
 end
 
     [system.cont.A system.cont.B system.cont.C system.cont.D] = get_controller_matrices(system, pars);
+    [system.disc] = discretize_controller_matrices(system);
 
     %pars = control_fn(system, pars);
     
