@@ -191,6 +191,7 @@ system.ss.cont = ss(system.cont.A,system.cont.B,system.cont.C,system.cont.D);
 system.tf.cont = tf(system.ss.cont);
 %pars = control_fn(system, pars);
 
+
 system.disc = discretize_controller_matrices(system.ss.cont);
 %else
 %   load('controller.mat')
