@@ -203,12 +203,10 @@ LLDR_Ad = system.disc.A;
 LLDR_Bd = system.disc.B; 
 LLDR_Cd = system.disc.C;
 LLDR_Dd = system.disc.D;
-LLDR_Ty = pars.nom.w_e;
+LLDR_Ty = pars.nom.w_e
 LLDR_Tu = [pars.nom.u_alpha 0; 0 pars.nom.du_ign];
 
-% remember to change this number to get a separate filename
 controller_num = 3;
 
-save controller3.mat LLDR_Ad LLDR_Bd LLDR_Cd LLDR_Dd LLDR_Ty LLDR_Tu;
-
+save controller3.mat LLDR_Ad LLDR_Ad LLDR_Ad LLDR_Ad LLDR_Ad
 disp('End of main reached');
