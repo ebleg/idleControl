@@ -210,5 +210,9 @@ LLDR_Tu = [pars.nom.u_alpha 0; 0 pars.nom.du_ign];
 controller_num = 3;
 
 save controller3.mat LLDR_Ad LLDR_Bd LLDR_Cd LLDR_Dd LLDR_Ty LLDR_Tu;
+system.total = series(system.ss.cont,system.lin);
+
+figure
+margin(system.total)
 
 disp('End of main reached');
