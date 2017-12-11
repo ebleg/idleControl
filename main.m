@@ -207,12 +207,16 @@ LLDR_Ty = pars.nom.w_e;
 LLDR_Tu = [pars.nom.u_alpha 0; 0 pars.nom.du_ign];
 
 % remember to change this number to get a separate filename
-controller_num = 3;
 
-save controller3.mat LLDR_Ad LLDR_Bd LLDR_Cd LLDR_Dd LLDR_Ty LLDR_Tu;
+save controller13.mat LLDR_Ad LLDR_Bd LLDR_Cd LLDR_Dd LLDR_Ty LLDR_Tu;
 system.total = series(system.ss.cont,system.lin);
 
 figure
 margin(system.total)
 
+figure
+margin(system.ss.cont(1))
+
+figure
+margin(system.ss.cont(2))
 disp('End of main reached');
